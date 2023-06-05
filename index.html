@@ -87,7 +87,16 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "595b7e5920fb4415a20d87c16759a6f6"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                        
+  <script>
+    
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -102,6 +111,126 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let section = document.getElementById("error-btns");
+    let buttons = section.getElementsByTagName("button");
+
+    let log = buttons[0];
+    let error = buttons[1];
+    let count = buttons[2];
+    let warn = buttons[3];
+    let assert = buttons[4];
+    let clear = buttons[5];
+    let dir = buttons[6];
+    let dirxml = buttons[7];
+    let grpst = buttons[8];
+    let grped = buttons[9];
+    let table = buttons[10];
+    let tmst = buttons[11];
+    let tmed = buttons[12];
+    let trace = buttons[13];
+    let glberr = buttons[14];
+
+    const one = 1;
+    const two = 2;
+    const reason = 'One is not equal to two. ';
+    const label = 'console.group';
+    const people = [
+      {
+        first: 'René',
+        last: 'Magritte',
+      },
+      {
+        first: 'Chaim',
+        last: 'Soutine',
+        birthday: '18930113',
+      },
+      {
+        first: 'Henri',
+        last: 'Matisse',
+      }
+    ];
+    const first = () => {second()};
+    const second = () => {third()};
+    const third = () => {console.trace()};
+
+    log.addEventListener('click', () => {
+      console.log('Console Log Demo');
+    });
+    error.addEventListener('click', () => {
+      console.error('Console Error Demo');
+    });
+    count.addEventListener('click', () => {
+      console.count('Count Button');
+    });
+    warn.addEventListener('click', () => {
+      console.warn('Console Warn Demo');
+    });
+    assert.addEventListener('click', () => {
+      console.assert(one == two, {one, two, reason});
+    });
+    clear.addEventListener('click', () => {
+      console.clear();
+    });
+    dir.addEventListener('click', () => {
+      console.dir(dir);
+    });
+    dirxml.addEventListener('click', () => {
+      console.dirxml(dirxml);
+    });
+    grpst.addEventListener('click', () => {
+      console.group(label);
+    });
+    grped.addEventListener('click', () => {
+      console.groupEnd(label);
+    });
+    table.addEventListener('click', () => {
+      console.table(people);
+    });
+    tmst.addEventListener('click', () => {
+      console.time();
+    });
+    tmed.addEventListener('click', () => {
+      console.timeEnd();
+    });
+    trace.addEventListener('click', () => {
+      first();
+    });
+
+    class ValidationError extends Error {
+      constructor(message) {
+        super(message); // (1)
+        this.name = "ValidationError"; // (2)
+      }
+    }
+
+    function test() {
+      throw new ValidationError("Whoops!");
+    }
+
+    let json = '{ "age": 30 }'; // incomplete data
+    try{
+      try {
+        let user = JSON.parse(json);
+        if (!user.name) {
+          throw new SyntaxError("Incomplete data: no name");
+        }
+        blabla(); // unexpected error
+        alert( user.name );
+      } catch (err) {
+        throw err;
+      } finally {
+        console.log('Always excute');
+        test();
+      }
+    } catch (err){
+      console.log(err.name);
+    }
+
+    glberr.addEventListener('click', () => {
+      test();
+    });
+
+    TrackJS.track('Testing TrackJS!');
   </script>
 </body>
 
